@@ -90,9 +90,6 @@ def read_pitch(filename):
 
     rounded_list = [round(elem, 0) for elem in y]
 
-    # print(rounded_list)
-    # print(out.best_values)
-
     ydiff = np.diff(rounded_list)
     np.all(ydiff[0] == ydiff)
     # print(ydiff)
