@@ -10,6 +10,11 @@ def compare_pitch():
     print(file1, file2)
     data1, data2 = read_pitch(file1), read_pitch(file2)
 
+    if len(data1) < len(data2):
+        data2 = data2[0:len(data1)]
+    else:
+        data1 = data1[0:len(data2)]
+
     slope, intercept, r_value, p_value, std_err = stats.linregress(data1, data2)
     print("REGRESSION ANALYSIS")
     print("SLOPE = %f" % slope)
@@ -28,7 +33,11 @@ def compare_pitch():
 def compare_pitch_function(file1, file2, tolerance):
     print(file1, file2)
     data1, data2 = read_pitch(file1), read_pitch(file2)
-    print(len(data1),len(data2))
+
+    if len(data1) < len(data2):
+        data2 = data2[0:len(data1)]
+    else:
+        data1 = data1[0:len(data2)]
 
     slope, intercept, r_value, p_value, std_err = stats.linregress(data1, data2)
     print("REGRESSION ANALYSIS")
