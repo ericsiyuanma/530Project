@@ -76,7 +76,7 @@ def main():
                             len(ac.encode(
                                 str(ac.concat_list(ac.tobits(message2))), 10,
                                 1))))
-                compare_pitch_function(audiofile1, audiofile2, 0.05)
+                compare_pitch_function(message1, message2, audiofile1, audiofile2, 0.05)
 
             except sr2.UnknownValueError:
                 print("Could not understand audio")
@@ -109,7 +109,7 @@ def main():
                         "We heard you say '{0}' and then '{1}'. These do not match and have respective entropies: "
                         "'{2}' bits and '{3}' bits ".format(
                             message1, message2, lowerbound1, lowerbound2))
-                compare_pitch_function("microphone-result1.wav",
+                compare_pitch_function(message1, message2, "microphone-result1.wav",
                                        "microphone-result2.wav", 0.05)
             except sr2.UnknownValueError:
                 print("Could not understand audio")

@@ -206,11 +206,14 @@ def decode(string, N=10000, c0=BETA0, c1=BETA1, adaptive=1, verbose=0):
         pass
     return ans
     pass
+
+
 def concat_list(list):
-    result= ''
+    result = ''
     for element in list:
         result += str(element)
     return result
+
 
 def tobits(s):
     result = []
@@ -220,12 +223,14 @@ def tobits(s):
         result.extend([int(b) for b in bits])
     return result
 
+
 def frombits(bits):
     chars = []
     for b in range(len(bits) / 8):
-        byte = bits[b*8:(b+1)*8]
+        byte = bits[b * 8:(b + 1) * 8]
         chars.append(chr(int(''.join([str(bit) for bit in byte]), 2)))
     return ''.join(chars)
+
 
 def test():
     sl = [str(concat_list(tobits("hello world"))), "111", "00001000000000000000", \
