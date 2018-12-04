@@ -78,6 +78,8 @@ def compare_pitch_function(password1, password2, file1, file2, tolerance):
 
     slope, intercept, r_value, p_value, std_err = stats.linregress(data1_raw,
                                                                    data2_raw)
+    print()
+    print()
     print("REGRESSION ANALYSIS FROM RAW DATA")
     print("SLOPE = %f" % slope)
     print("INTERCEPT = %f" % intercept)
@@ -92,6 +94,8 @@ def compare_pitch_function(password1, password2, file1, file2, tolerance):
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
 
+    print()
+    print()
     slope, intercept, r_value, p_value, std_err = stats.linregress(data1_curve,
                                                                    data2_curve)
     print("REGRESSION ANALYSIS FROM CURVED APPROXIMATION FUNCTION")
@@ -107,7 +111,8 @@ def compare_pitch_function(password1, password2, file1, file2, tolerance):
             "p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
-
+    print()
+    print()
     calculate_entropy(len(password1))
     if password1 != password2:
         calculate_entropy(len(password2))
