@@ -86,16 +86,15 @@ def read_pitch(filename):
     pars = mod.guess(y, x=x)
     out = mod.fit(y, pars, x=x)
 
-    curved_points = out.best_fit
-
+    curved_points = out.best_fit[0:50]
     rounded_list = [round(elem, 0) for elem in y]
 
     ydiff = np.diff(rounded_list)
     np.all(ydiff[0] == ydiff)
     # print(ydiff)
 
-    # plt.plot(x, y, 'bo')
-    # plt.plot(x, out.init_fit, 'k--')
-    # plt.plot(x, out.best_fit, 'r-')
-    # plt.show()
+    plt.plot(x, y, 'bo')
+    plt.plot(x, out.init_fit, 'k--')
+    plt.plot(x, out.best_fit, 'r-')
+    plt.show()
     return curved_points
