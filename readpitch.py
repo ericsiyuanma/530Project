@@ -81,12 +81,14 @@ def read_pitch(filename):
 
     y = np.array([int(i) for i in y])
     x = np.array(list(range(0, len(y))))
-
+    print(x)
     mod = PolynomialModel(7)
     pars = mod.guess(y, x=x)
     out = mod.fit(y, pars, x=x)
 
-    curved_points = out.best_fit[0:50]
+    curved_points = out.best_fit
+    print(out.best_values)
+
     rounded_list = [round(elem, 0) for elem in y]
 
     ydiff = np.diff(rounded_list)
@@ -96,5 +98,4 @@ def read_pitch(filename):
     plt.plot(x, y, 'bo')
     plt.plot(x, out.init_fit, 'k--')
     plt.plot(x, out.best_fit, 'r-')
-    plt.show()
     return curved_points

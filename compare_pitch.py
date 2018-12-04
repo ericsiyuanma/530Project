@@ -1,6 +1,7 @@
-#! /usr/bin/env python
+# ! /usr/bin/env python
 
 import sys
+import math
 from scipy import stats
 from readpitch import read_pitch
 
@@ -23,6 +24,14 @@ def compare_pitch():
         print("p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
+
+    password_length = 5
+    password_prob = 1/(26**password_length)
+    pitch_prob = 0.05
+    joint_prob = password_prob * pitch_prob
+    joint_entropy = joint_prob * -math.log2(joint_prob)
+    print("Joint entropy: %.2E" % joint_entropy)
+
 
 
 def compare_pitch_function(file1, file2, tolerance):
