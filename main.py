@@ -5,8 +5,8 @@ import sys
 import ac_encode as ac
 import pyaudio
 from compare_pitch import compare_pitch_function
+from compare_pitch import calculate_entropy
 from readpitch import read_pitch
-
 
 def main():
     choice = input(
@@ -104,6 +104,8 @@ def main():
                         "We think you said '{0}' both times. Your password has an entropy of: '{1}'".format(
                             message1,
                             lowerbound1))
+                    calculate_entropy(lowerbound1)
+
                 else:
                     print(
                         "We heard you say '{0}' and then '{1}'. These do not match and have respective entropies: "
