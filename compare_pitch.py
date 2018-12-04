@@ -6,6 +6,13 @@ from scipy import stats
 from readpitch import read_pitch
 
 
+def calculate_entropy(password_length):
+    password_entropy = password_length * math.log(26, 2)
+    pitch_entropy = 50 * math.log(14, 2)
+    joint_entropy = password_entropy + pitch_entropy
+    print("Joint entropy: %.2E" % joint_entropy)
+
+
 def compare_pitch():
     file1, file2, tolerance = sys.argv[1], sys.argv[2], sys.argv[3]
 
@@ -54,16 +61,8 @@ def compare_pitch():
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
 
-    password_length = 5
-    password_prob = 1/(26**password_length)
-    pitch_prob = 0.05
-    joint_prob = password_prob * pitch_prob
-    joint_entropy = joint_prob * -math.log2(joint_prob)
-    print("Joint entropy: %.2E" % joint_entropy)
 
-
-
-def compare_pitch_function(file1, file2, tolerance):
+def compare_pitch_function(password1, password2, file1, file2, tolerance):
     data1_raw, data1_curve = read_pitch(file1)
     data2_raw, data2_curve = read_pitch(file2)
 
@@ -109,13 +108,7 @@ def compare_pitch_function(file1, file2, tolerance):
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
 
-    password_length = 12
-    password_prob = 1/(26**password_length)
-    pitch_prob = 1/14 ** 50
-    joint_prob = password_prob * pitch_prob
-    joint_entropy = joint_prob * -math.log2(joint_prob)
-    print("Joint entropy: %.2E" % joint_entropy)
-
-
-
+    calculate_entropy(len(password1))
+    if password1 != password2:
+        calculate_entropy(len(password2))
 
