@@ -47,8 +47,8 @@ def read_pitch(filename):
 
     downsample = 1
     samplerate = 44100 // downsample
-    win_s = 4096 // downsample  # fft size
-    hop_s = 512 // downsample  # hop size
+    win_s = 4096 // downsample
+    hop_s = 512 // downsample
 
     s = source("passcode.wav", samplerate, hop_s)
     samplerate = s.samplerate
@@ -67,10 +67,7 @@ def read_pitch(filename):
     while True:
         samples, read = s()
         pitch = pitch_o(samples)[0]
-        # pitch = int(round(pitch))
         confidence = pitch_o.get_confidence()
-        # if confidence < 0.8: pitch = 0.
-        # print("%f %f %f" % (total_frames / float(samplerate), pitch, confidence))
         pitches += [pitch]
         confidences += [confidence]
         total_frames += read
@@ -81,14 +78,12 @@ def read_pitch(filename):
 
     y = np.array([int(i) for i in y])
     x = np.array(list(range(0, len(y))))
-    print(x)
+
     mod = PolynomialModel(7)
     pars = mod.guess(y, x=x)
     out = mod.fit(y, pars, x=x)
 
     curved_points = out.best_fit
-    print(out.best_values)
-
     rounded_list = [round(elem, 0) for elem in y]
 
     ydiff = np.diff(rounded_list)
@@ -98,4 +93,5 @@ def read_pitch(filename):
     plt.plot(x, y, 'bo')
     plt.plot(x, out.init_fit, 'k--')
     plt.plot(x, out.best_fit, 'r-')
-    return curved_points
+    plt.show()
+    return y, curved_points
