@@ -7,16 +7,23 @@ from readpitch import read_pitch
 
 def compare_pitch():
     file1, file2, tolerance = sys.argv[1], sys.argv[2], sys.argv[3]
-    print(file1, file2)
-    data1, data2 = read_pitch(file1), read_pitch(file2)
 
-    if len(data1) < len(data2):
-        data2 = data2[0:len(data1)]
+    data1_raw, data1_curve = read_pitch(file1)
+    data2_raw, data2_curve = read_pitch(file2)
+
+    if len(data1_raw) < len(data2_raw):
+        data2_raw = data2_raw[0:len(data1_raw)]
     else:
-        data1 = data1[0:len(data2)]
+        data1_raw = data1_raw[0:len(data2_raw)]
 
-    slope, intercept, r_value, p_value, std_err = stats.linregress(data1, data2)
-    print("REGRESSION ANALYSIS")
+    if len(data1_curve) < len(data2_curve):
+        data2_curve = data2_curve[0:len(data1_curve)]
+    else:
+        data1_curve = data1_curve[0:len(data2_curve)]
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(data1_raw,
+                                                                   data2_raw)
+    print("REGRESSION ANALYSIS FROM RAW DATA")
     print("SLOPE = %f" % slope)
     print("INTERCEPT = %f" % intercept)
     print("R-VALUE = %f" % r_value)
@@ -25,22 +32,45 @@ def compare_pitch():
 
     print("-----VERDICT-----")
     if float(p_value) >= float(tolerance):
-        print("p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
+        print(
+            "p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
+    else:
+        print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(data1_curve,
+                                                                   data2_curve)
+    print("REGRESSION ANALYSIS FROM CURVED APPROXIMATION FUNCTION")
+    print("SLOPE = %f" % slope)
+    print("INTERCEPT = %f" % intercept)
+    print("R-VALUE = %f" % r_value)
+    print("P-VALUE = %f" % p_value)
+    print("STD-ERROR = %f" % std_err)
+
+    print("-----VERDICT-----")
+    if float(p_value) >= float(tolerance):
+        print(
+            "p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
 
 
 def compare_pitch_function(file1, file2, tolerance):
-    print(file1, file2)
-    data1, data2 = read_pitch(file1), read_pitch(file2)
+    data1_raw, data1_curve = read_pitch(file1)
+    data2_raw, data2_curve = read_pitch(file2)
 
-    if len(data1) < len(data2):
-        data2 = data2[0:len(data1)]
+    if len(data1_raw) < len(data2_raw):
+        data2_raw = data2_raw[0:len(data1_raw)]
     else:
-        data1 = data1[0:len(data2)]
+        data1_raw = data1_raw[0:len(data2_raw)]
 
-    slope, intercept, r_value, p_value, std_err = stats.linregress(data1, data2)
-    print("REGRESSION ANALYSIS")
+    if len(data1_curve) < len(data2_curve):
+        data2_curve = data2_curve[0:len(data1_curve)]
+    else:
+        data1_curve = data1_curve[0:len(data2_curve)]
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(data1_raw,
+                                                                   data2_raw)
+    print("REGRESSION ANALYSIS FROM RAW DATA")
     print("SLOPE = %f" % slope)
     print("INTERCEPT = %f" % intercept)
     print("R-VALUE = %f" % r_value)
@@ -49,6 +79,23 @@ def compare_pitch_function(file1, file2, tolerance):
 
     print("-----VERDICT-----")
     if float(p_value) >= float(tolerance):
-        print("p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
+        print(
+            "p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
+    else:
+        print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(data1_curve,
+                                                                   data2_curve)
+    print("REGRESSION ANALYSIS FROM CURVED APPROXIMATION FUNCTION")
+    print("SLOPE = %f" % slope)
+    print("INTERCEPT = %f" % intercept)
+    print("R-VALUE = %f" % r_value)
+    print("P-VALUE = %f" % p_value)
+    print("STD-ERROR = %f" % std_err)
+
+    print("-----VERDICT-----")
+    if float(p_value) >= float(tolerance):
+        print(
+            "p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))

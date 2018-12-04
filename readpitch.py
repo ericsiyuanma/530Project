@@ -94,4 +94,4 @@ def read_pitch(filename):
     plt.plot(x, out.init_fit, 'k--')
     plt.plot(x, out.best_fit, 'r-')
     plt.show()
-    return curved_points
+    return y, curved_points
