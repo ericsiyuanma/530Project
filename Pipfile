@@ -1,17 +1,25 @@
 [[source]]
+
 name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
+
 [dev-packages]
 
+
+
 [packages]
+
 numpy = "*"
 aubio = "*"
 lmfit = "*"
 pydub = "*"
 scipy = "*"
 matplotlib = "*"
+speechrecognition = "*"
+
 
 [requires]
+
 python_version = "3.6"

@@ -7,8 +7,10 @@ import pyaudio
 from compare_pitch import compare_pitch_function
 from readpitch import read_pitch
 
+
 def main():
-    choice = input("Press 1 for live mic input, press 2 for file name, press 3 for comparison of two files, press 4 for comparison of two mic inputs ")
+    choice = input(
+        "Press 1 for live mic input, press 2 for file name, press 3 for comparison of two files, press 4 for comparison of two mic inputs ")
     r = sr2.Recognizer()
     if choice == "1":
         with sr2.Microphone() as source:
@@ -18,10 +20,14 @@ def main():
                 f.write(audio.get_wav_data())
             try:
                 message = r.recognize_google(audio)
-                lowerbound = len(ac.encode(str(ac.concat_list(ac.tobits(message))), 10, 1))
-                print("We think you said '{0}' was your password ".format(message))
-                print("The entropy of the said password given is: {0} bits ".format(lowerbound))
-                read_pitch("microphone-result1")
+                lowerbound = len(
+                    ac.encode(str(ac.concat_list(ac.tobits(message))), 10, 1))
+                print("We think you said '{0}' was your password ".format(
+                    message))
+                print(
+                    "The entropy of the said password given is: {0} bits ".format(
+                        lowerbound))
+                read_pitch("microphone-result1.wav")
             except sr2.UnknownValueError:
                 print("Could not understand audio")
             except sr2.RequestError as e:
@@ -33,9 +39,12 @@ def main():
             audio = r.record(source)
         try:
             message = r.recognize_google(audio)
-            lowerbound = len(ac.encode(str(ac.concat_list(ac.tobits(message))), 10, 1))
-            print("We think the file said '{0}' was your password ".format(message))
-            print("The entropy of the audio file given is: {0} bits ".format(lowerbound))
+            lowerbound = len(
+                ac.encode(str(ac.concat_list(ac.tobits(message))), 10, 1))
+            print("We think the file said '{0}' was your password ".format(
+                message))
+            print("The entropy of the audio file given is: {0} bits ".format(
+                lowerbound))
             read_pitch(audiofile)
         except sr2.UnknownValueError:
             print("Could not understand audio")
@@ -55,11 +64,18 @@ def main():
                 message1 = r.recognize_google(audio1)
                 message2 = r.recognize_google(audio2)
                 if message1 == message2:
-                    print("Congrats your passwords match. It has an entropy of: {0} bits ".format(ac.encode(message1, 10, 1)))
+                    print(
+                        "Congrats your passwords match. It has an entropy of: {0} bits ".format(
+                            ac.encode(message1, 10, 1)))
                 else:
-                    print("The two messages given were: '{0}' and '{1} with respective entropies: '{2}','{3}' ".format(
-                        message1, message2, len(ac.encode(str(ac.concat_list(ac.tobits(message1))), 10, 1)),
-                        len(ac.encode(str(ac.concat_list(ac.tobits(message2))), 10, 1))))
+                    print(
+                        "The two messages given were: '{0}' and '{1} with respective entropies: '{2}','{3}' ".format(
+                            message1, message2, len(ac.encode(
+                                str(ac.concat_list(ac.tobits(message1))), 10,
+                                1)),
+                            len(ac.encode(
+                                str(ac.concat_list(ac.tobits(message2))), 10,
+                                1))))
                 compare_pitch_function(audiofile1, audiofile2, 0.05)
 
             except sr2.UnknownValueError:
@@ -79,17 +95,22 @@ def main():
             try:
                 message1 = r.recognize_google(audio1)
                 message2 = r.recognize_google(audio2)
-                lowerbound1 = len(ac.encode(str(ac.concat_list(ac.tobits(message1))), 10, 1))
-                lowerbound2 = len(ac.encode(str(ac.concat_list(ac.tobits(message2))), 10, 1))
+                lowerbound1 = len(
+                    ac.encode(str(ac.concat_list(ac.tobits(message1))), 10, 1))
+                lowerbound2 = len(
+                    ac.encode(str(ac.concat_list(ac.tobits(message2))), 10, 1))
                 if message1 == message2:
-                    print("We think you said '{0}' both times. Your password has an entropy of: '{1}'".format(message1,
-                                                                                                              lowerbound1))
+                    print(
+                        "We think you said '{0}' both times. Your password has an entropy of: '{1}'".format(
+                            message1,
+                            lowerbound1))
                 else:
                     print(
                         "We heard you say '{0}' and then '{1}'. These do not match and have respective entropies: "
                         "'{2}' bits and '{3}' bits ".format(
                             message1, message2, lowerbound1, lowerbound2))
-                compare_pitch_function("microphone-result1.wav", "microphone-result2.wav", 0.05)
+                compare_pitch_function("microphone-result1.wav",
+                                       "microphone-result2.wav", 0.05)
             except sr2.UnknownValueError:
                 print("Could not understand audio")
             except sr2.RequestError as e:
