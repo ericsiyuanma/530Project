@@ -76,14 +76,13 @@ def compare_pitch_function(password1, password2, file1, file2, tolerance):
     else:
         data1_curve = data1_curve[0:len(data2_curve)]
 
-    slope, intercept, r_value, p_value, std_err = stats.linregress(data1_raw,
-                                                                   data2_raw)
-    print("REGRESSION ANALYSIS FROM RAW DATA")
-    print("SLOPE = %f" % slope)
-    print("INTERCEPT = %f" % intercept)
-    print("R-VALUE = %f" % r_value)
+    ks_statistic, p_value = stats.ks_2samp(data1_raw, data2_raw)
+    print()
+    print()
+    print("KOLMOGOROV–SMIRNOV ANALYSIS FROM RAW DATA")
+
+    print("TEST STATISTIC = %f" % ks_statistic)
     print("P-VALUE = %f" % p_value)
-    print("STD-ERROR = %f" % std_err)
 
     print("-----VERDICT-----")
     if float(p_value) >= float(tolerance):
@@ -91,15 +90,14 @@ def compare_pitch_function(password1, password2, file1, file2, tolerance):
             "p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
+    print()
+    print()
 
-    slope, intercept, r_value, p_value, std_err = stats.linregress(data1_curve,
-                                                                   data2_curve)
-    print("REGRESSION ANALYSIS FROM CURVED APPROXIMATION FUNCTION")
-    print("SLOPE = %f" % slope)
-    print("INTERCEPT = %f" % intercept)
-    print("R-VALUE = %f" % r_value)
+    ks_statistic, p_value = stats.ks_2samp(data1_curve, data2_curve)
+    print("KOLMOGOROV–SMIRNOV ANALYSIS FROM SMOOTHED DATA")
+
+    print("TEST STATISTIC = %f" % ks_statistic)
     print("P-VALUE = %f" % p_value)
-    print("STD-ERROR = %f" % std_err)
 
     print("-----VERDICT-----")
     if float(p_value) >= float(tolerance):
@@ -107,8 +105,8 @@ def compare_pitch_function(password1, password2, file1, file2, tolerance):
             "p-value: %f is higher than tolerance: %s" % (p_value, tolerance))
     else:
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
-
+    print()
+    print()
     calculate_entropy(len(password1))
     if password1 != password2:
         calculate_entropy(len(password2))
-
