@@ -6,11 +6,11 @@ from scipy import stats
 from readpitch import read_pitch
 
 
-def calculate_entropy(password_length):
-    password_entropy = password_length * math.log(26, 2)
-    pitch_entropy = 50 * math.log(14, 2)
-    joint_entropy = password_entropy + pitch_entropy
-    print("Joint entropy: %.2E" % joint_entropy)
+#def calculate_entropy(password_length):
+#    password_entropy = password_length * math.log(26, 2)
+#    pitch_entropy = 50 * math.log(14, 2)
+#    joint_entropy = password_entropy + pitch_entropy
+#    print("Joint entropy: %.2E" % joint_entropy)
 
 
 def compare_pitch():
@@ -107,6 +107,6 @@ def compare_pitch_function(password1, password2, file1, file2, tolerance):
         print("p-value: %f is lower than tolerance: %s" % (p_value, tolerance))
     print()
     print()
-    calculate_entropy(len(password1))
-    if password1 != password2:
-        calculate_entropy(len(password2))
+#    calculate_entropy(len(password1))
+#    if password1 != password2:
+#        calculate_entropy(len(password2))

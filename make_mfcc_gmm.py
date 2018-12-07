@@ -8,7 +8,7 @@ from numpy import arange
 from demo_waveform_plot import get_waveform_plot
 from demo_waveform_plot import set_xlabels_sample2time
 import matplotlib.pyplot as plt
-
+from calculate_entropy import exp_entropy
 
 class Mixture:
     def __init__(self, weight, mean, covar):
@@ -57,6 +57,8 @@ def plots(mode, mfccs, mfccs_append, source_filename, samplerate, hop_s, frames_
         print(mixture.mean)
         print(mixture.covar)
         print()
+
+    exp_entropy(mixtures)
 
     # print(all_times,n_coeffs)
     for i in range(n_coeffs):

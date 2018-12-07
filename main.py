@@ -5,7 +5,7 @@ import sys
 import ac_encode as ac
 import pyaudio
 from compare_pitch import compare_pitch_function
-from compare_pitch import calculate_entropy
+#from compare_pitch import calculate_entropy
 from readpitch import read_pitch
 
 def main():
