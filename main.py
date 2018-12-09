@@ -7,7 +7,7 @@ import pyaudio
 from compare_pitch import compare_pitch_function
 #from compare_pitch import calculate_entropy
 from readpitch import read_pitch
-
+from make_mfcc_gmm import calculate
 def main():
     choice = input(
         "Press 1 for live mic input, press 2 for file name, press 3 for comparison of two files, press 4 for comparison of two mic inputs ")
@@ -28,6 +28,7 @@ def main():
                     "The entropy of the said password given is: {0} bits ".format(
                         lowerbound))
                 read_pitch("microphone-result1.wav")
+                calculate("microphone-result1.wav")
             except sr2.UnknownValueError:
                 print("Could not understand audio")
             except sr2.RequestError as e:
@@ -46,6 +47,7 @@ def main():
             print("The entropy of the audio file given is: {0} bits ".format(
                 lowerbound))
             read_pitch(audiofile)
+            calculate(audiofile)
         except sr2.UnknownValueError:
             print("Could not understand audio")
         except sr2.RequestError as e:
@@ -76,7 +78,10 @@ def main():
                             len(ac.encode(
                                 str(ac.concat_list(ac.tobits(message2))), 10,
                                 1))))
-                compare_pitch_function(audiofile1, audiofile2, 0.05)
+                compare_pitch_function(message1, message2, audiofile1, audiofile2, 0.05)
+                calculate(audiofile1)
+                calculate(audiofile2)
+
 
             except sr2.UnknownValueError:
                 print("Could not understand audio")
@@ -104,8 +109,6 @@ def main():
                         "We think you said '{0}' both times. Your password has an entropy of: '{1}'".format(
                             message1,
                             lowerbound1))
-                    calculate_entropy(lowerbound1)
-
                 else:
                     print(
                         "We heard you say '{0}' and then '{1}'. These do not match and have respective entropies: "
@@ -113,6 +116,9 @@ def main():
                             message1, message2, lowerbound1, lowerbound2))
                 compare_pitch_function("microphone-result1.wav",
                                        "microphone-result2.wav", 0.05)
+                calculate("microphone-result1.wav")
+                calculate("microphone-result2.wav")
+
             except sr2.UnknownValueError:
                 print("Could not understand audio")
             except sr2.RequestError as e:

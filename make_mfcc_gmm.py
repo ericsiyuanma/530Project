@@ -10,6 +10,7 @@ from demo_waveform_plot import set_xlabels_sample2time
 import matplotlib.pyplot as plt
 from calculate_entropy import exp_entropy
 
+
 class Mixture:
     def __init__(self, weight, mean, covar):
         self.weight = weight
@@ -43,20 +44,20 @@ def plots(mode, mfccs, mfccs_append, source_filename, samplerate, hop_s, frames_
 
     num_components = 10
     stuff = np.concatenate(mfccs, axis=0)
-    print(len(mfccs_append))
+    #print(len(mfccs_append))
     gmm = mixture.GaussianMixture(n_components=num_components, covariance_type='full',
                                   max_iter=75).fit(X)
 
-    print(gmm.covariances_)
+    #print(gmm.covariances_)
     mixtures = []
     for n in range(0, num_components):
         mixtures.append(Mixture(gmm.weights_[n], gmm.means_[n], gmm.covariances_[n][:2, :2]))
 
-    for mixture in mixtures:
-        print(mixture.weight)
-        print(mixture.mean)
-        print(mixture.covar)
-        print()
+    #for mixture in mixtures:
+    #    print(mixture.weight)
+    #    print(mixture.mean)
+    #    print(mixture.covar)
+    #    print()
 
     exp_entropy(mixtures)
 
@@ -112,4 +113,3 @@ def calculate(filename):
     plots(mode, mfccs, mfccs_append, source_filename, samplerate, hop_s, frames_read)
 
 
-calculate("sneaking.wav")
