@@ -47,8 +47,8 @@ def read_pitch(filename):
 
     downsample = 1
     samplerate = 44100 // downsample
-    win_s = 30 // downsample
-    hop_s = 10 // downsample
+    win_s = 512 // downsample
+    hop_s =  170// downsample
 
     s = source("passcode.wav", samplerate, hop_s)
     samplerate = s.samplerate
