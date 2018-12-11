@@ -10,6 +10,15 @@ from lmfit.models import PolynomialModel
 from pydub import AudioSegment
 from change_tempo import change_tempo_file
 
+"""
+code snippets utilized from 
+https://github.com/aubio/aubio/blob/master/python/demos/demo_waveform_plot.py
+https://github.com/aubio/aubio/blob/master/python/demos/demo_pitch.py
+https://github.com/aubio/aubio/blob/master/python/demos/demo_timestretch.py
+https://lmfit.github.io/lmfit-py/model.html
+https://github.com/aubio/aubio/blob/master/python/demos/demo_mfcc.py
+http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/modules/generated/sklearn.mixture.GMM.html
+"""
 
 def detect_leading_silence(sound, silence_threshold=-50.0, chunk_size=10):
     trim_ms = 0  # ms
